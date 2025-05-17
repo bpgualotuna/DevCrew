@@ -330,6 +330,81 @@ function agregarCategoria() {
       - Agregar categoría a la lista
       - Limpiar campos y actualizar lista de categorías
     */
+  let categoria = recuperarTexto("nombreCategoria")
+  let descripcion = recuperarTexto("descripcionCategoria")
+  let errorCategoria = false;
+
+  if (categoria == "") {
+    mostrarTexto("errorNombreCategoria", "La categoria es obligarotia y debe tener formato valido");
+    errorCategoria = true;
+  } else {
+    mostrarTexto("errorNombreCategoria", "");
+  }
+  if (errorCategoria == false) {
+    for (let i = 0; i < categoria.length; i++) {
+      if (soloLetras(categoria.charAt(i)) == false) {
+        mostrarTexto("errorNombreCategoria", "La categoria solo puede tener letras y espacios");
+        errorCategoria = true;
+
+      } else {
+        mostrarTexto("errorNombreCategoria", "");
+      }
+    }
+  }
+
+  if (errorCategoria == false) {
+    if (esMayuscula(categoria.charAt(0)) == false) {
+      mostrarTexto("errorNombreCategoria", "La primera letra debe ser Mayuscula");
+      errorCategoria = true;
+    } else {
+      for (let i = 1; i < categoria.length; i++) {
+        if (esMayuscula(categoria.charAt(i)) == true) {
+          mostrarTexto("errorNombreCategoria", "Solo la primera letra debe ser Mayuscula");
+          errorCategoria = true;
+          break;
+        }
+      }
+    }
+  }
+  //validar descripcion
+  let errorDescripcion = false;
+  if (descripcion == "") {
+  } else {
+    mostrarTexto("errorDescripcionCategoria", "");
+  }
+  if (errorDescripcion == false) {
+    for (let i = 0; i < descripcion.length; i++) {
+      if (soloLetras(descripcion.charAt(i)) == false) {
+        mostrarTexto("errorDescripcionCategoria", "La descripcion es no debe tener caracteres especiales");
+        errorDescripcion = true;
+        break;
+      } else {
+        mostrarTexto("errorDescripcionCategoria", "");
+      }
+    }
+  }
+  if (errorCategoria == false && errorDescripcion == false){
+  let categoriaA
+  let esNuevo =true
+  for ( let i = 0;i<categorias.length;i++){
+categoriaA = categorias[i]
+if (categoriaA.nombre == categoria){
+  alert("La categoria ya existe")
+  esNuevo = false
+  break
+}
+}
+if (esNuevo == true){
+  let nuevaCategoria=[]
+  nuevaCategoria.nombre = categoria
+  nuevaCategoria.descripcion = descripcion
+  categorias.push(nuevaCategoria)
+  alert("categoria agregada")
+  mostrarTextoEnCaja("nombreCategoria","")
+  mostrarTextoEnCaja("descripcionCategoria","")
+}
+}
+  mostrarCategorias()
 }
 
 // Función: mostrar categorías
@@ -339,6 +414,15 @@ function mostrarCategorias() {
       - Recorrer categorías y mostrar en lista HTML
       - Agregar botón para eliminar categoría
     */
+   let cmpLista = document.getElementById("listaCategorias")
+   let categoriaA
+  let contenidoListaCategorias = "<table class='tabla-minimalista'><th>NOMBRE</th><th>Descripcion</th>"
+  for(let i =0;i<categorias.length;i++){
+    categoriaA = categorias[i]
+    contenidoListaCategorias += "<tr><td>"+categoriaA.nombre+"</td>"+"<td>"+categoriaA.descripcion+"</td></tr>"
+  }
+  contenidoListaCategorias +="</table>"
+  cmpLista.innerHTML = contenidoListaCategorias
 }
 
 // Función: eliminar categoría
