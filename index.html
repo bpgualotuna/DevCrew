@@ -105,11 +105,12 @@
             <h2>Carrito de Compras (Reto Grupal)</h2>
             <p>Añadir productos al carrito desde la lista de productos disponibles.</p>
             <div id="productosDisponibles">
+                  <button type="button" class="tabla-minimalista" onclick="mostrarCarrito()">Agregar Categoría</button>
                 <!-- Productos para añadir -->
             </div>
 
             <h3>Resumen del Carrito</h3>
-            <table id="tablaCarrito">
+            <table id="tablaCarrito" class="tabla-minimalista">
                 <thead>
                     <tr>
                         <th>Producto</th>
@@ -117,7 +118,9 @@
                         <th>Subtotal</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="Total carrito">
+                    
+
                     <!-- Carrito aparecerá aquí -->
                 </tbody>
             </table>

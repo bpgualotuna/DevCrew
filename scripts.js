@@ -366,6 +366,7 @@ function mostrarProductosDisponibles() {
 
 // Función: añadir producto al carrito
 function agregarAlCarrito(nombreProducto) {
+
   /*
       - Validar cantidad y stock disponible
       - Añadir producto o aumentar cantidad en carrito
@@ -375,11 +376,45 @@ function agregarAlCarrito(nombreProducto) {
 
 // Función: mostrar resumen del carrito
 function mostrarCarrito() {
+ 
+   let cmpTabla = document.getElementById("tablaCarrito")
+    
+  /*
+      - Limpiar contenido actual de la tabla
+      - Recorrer lista de producto
+      - Crear filas dinámicas con los datos y botón para eliminar
+    */
+      let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
+      "<th>Cantidad</th>" +
+      "<th>Subtotal</th>" +
+      "<th>Precio</th>" +
+     
+      "</tr></thead><tbody>";
+    
+    let elementosTabla;
+    let totalAPagar = 0;
+    for (let i = 0; i < carrito.length; i++) {
+      elementosTabla = carrito[i];
+      
+      contenidoTabla +=
+        
+        "<tr><td>" + elementosTabla.cantidad+ "</td>" +
+        "<td>" + elementosTabla.precio* elementosTabla.cantidad+ "</td>" +
+      
+          "<td>" + elementosTabla.precio+"</td>" +
+        "</td></tr>";
+totalAPagar +=  elementosTabla.precio * elementosTabla.cantidad
+    }
+    contenidoTabla += "</tbody></table>";
+    cmpTabla.innerHTML = contenidoTabla;
+    let resultado= mostrarTexto("totalCarrito", totalAPagar.toFixed(2))
+  return resultado
+}
   /*
       - Mostrar tabla con productos en carrito, cantidades y subtotal
       - Mostrar total general
     */
-}
+
 
 // Función: editar cantidad de producto en carrito
 function editarCantidadCarrito(index) {
