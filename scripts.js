@@ -397,6 +397,93 @@ function guardarDatosCliente() {
       - Obtener y validar campos del cliente (nombre, email, teléfono, dirección)
       - Guardar datos para la compra
     */
+   let nombreC = recuperarTexto("nombreCliente");
+   let correoC = recuperarTexto("emailCliente");
+   let telefonoC = recuperarTexto("telefonoCliente");
+   let direccionC = recuperarTexto("direccionCliente");
+
+   //validacion nombre
+   let errorNombre = false;
+  if (nombreC == "") {
+    mostrarTexto("errorNombreCliente", "El nombre no puede estar vacio");
+    errorNombre = true;
+  } else {
+    mostrarTexto("errorNombreCliente", "");
+  }
+  if (errorNombre == false) {
+    for (let i = 0; i < nombreC.length; i++) {
+      if (esDigito(nombreC.charAt(i)) == true) {
+        mostrarTexto("errorNombreCliente", "El nombre solo debe contener letras");
+        errorNombre = true;
+        break;
+      } else {
+        mostrarTexto("errorNombreCliente", "");
+      }
+    }
+  }
+  if (errorNombre == false) {
+    if (esMayuscula(nombreC.charAt(0)) == false) {
+      mostrarTexto("errorNombreCliente", "La primera letra debe ser Mayuscula");
+      errorNombre = true;
+    } else {
+      mostrarTexto("errorNombreCliente", "");
+    }
+  }
+
+  //validacion Correo
+  let errorCorreo = false;
+  if(correoC == ""){
+    mostrarTexto("errorEmailCliente","Debe ingresar un correo");
+    errorCorreo = true;
+  }else{
+    mostrarTexto("errorEmailCliente","");
+  }
+  if(errorCorreo == false){
+    let arro = 0;
+    for(let i = 0; i<correoC.length;i++){
+      if(correoC.charAt(i) == "@"){
+        arro += 1;
+      }
+    }
+    if(arro != 1){
+      mostrarTexto("errorEmailCliente","Debe ser un correo valido (un solo @)");
+      errorCorreo = true;
+    }else{
+      mostrarTexto("errorEmailCliente","");
+    }
+  }
+
+  //Validacion Telefono
+
+  let errorTel = false;
+  if(telefonoC == ""){
+    mostrarTexto("errorTelefonoCliente","Debe ingresar un telefono");
+    errorTel = true;
+  }else{
+    mostrarTexto("errorTelefonoCliente","");
+  }
+
+  if(errorTel == false){
+    for(let i = 0;i<telefonoC.length;i++){
+      if(esDigito(telefonoC.charAt(i)) == false){
+        mostrarTexto("errorTelefonoCliente","Debe ingresar solo numeros");
+        errorTel = true;
+        break;
+      }
+    }
+  }
+
+  //validacion Direccion
+
+  let errorDirec = false;
+  if(direccionC == ""){
+    mostrarTexto("errorDireccionCliente","Debe ingresar una direccion");
+    errorDirec = true;
+  }else{
+    mostrarTexto("errorDireccionCliente","");
+  }
+
+
 }
 
 // Función: finalizar compra
