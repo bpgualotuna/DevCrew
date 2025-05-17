@@ -784,19 +784,15 @@ function calcularProductoMasVendido() {
   }
   mostrarTexto("totalVentas", totalVentas.toFixed(2))
   let productoMayor = carrito[0];
-  for (let i = 1; i < carrito.length; i++) {
+  for (let i = 1; i < carrito.length; i++){
     let elementoCarrito = carrito[i];
-    if (elementoCarrito.cantidad > productoMayor.cantidad) {
+    if(elementoCarrito.cantidad > productoMayor.cantidad){
       productoMayor = elementoCarrito;
     }
   }
   let mayor = productoMayor;
-  mostrarTexto("productoMasVendido", productoMayor.nombre + " fue el producto mas vendido con un total de " + productoMayor.cantidad + " ventas.")
+  mostrarTexto("productoMasVendido", productoMayor.nombre +" fue el producto mas vendido con un total de "+productoMayor.cantidad+" ventas.")
 
     
 
-  /*
-      - Contar cantidades vendidas de cada producto en todas las ventas
-      - Retornar nombre de producto con mayor cantidad vendida
-    */
 }
