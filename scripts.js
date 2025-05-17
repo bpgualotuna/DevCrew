@@ -583,7 +583,12 @@ function guardarDatosCliente() {
 
     alert("Cliente Guardado Exitosamente");
 
+    habilitarComponente("finalizarCompra");
+
+
   }
+
+
 
 
 }
@@ -598,6 +603,37 @@ function finalizarCompra() {
       - Actualizar tablas y estadísticas
       - Mostrar mensaje éxito y limpiar formulario cliente
     */
+  let nombre = recuperarTexto("nombreCliente");
+  let carritoV = carrito.length;
+  let nombreValido = false;
+  let carritoValido = false;
+
+  if(carritoV == 0){
+    mostrarSeccion('seccion3');
+    carritoValido = true;
+  }
+  if(buscarCliente(nombre)== false){
+    alert("Cliente No Guardado");
+    nombreValido = true;
+  }
+
+  if(nombreValido == false && carritoValido == false){
+    
+  }
+
+
+
+}
+
+buscarCliente = function (nombre){
+  let clienteEncontrado = false;
+  for (let i=0;i<ventas.length;i++){
+    if(ventas[i].cliente.nombre == nombre){
+      clienteEncontrado=true;
+      break;
+    }
+  }
+  return clienteEncontrado;
 }
 
 // Función: mostrar resumen de ventas
