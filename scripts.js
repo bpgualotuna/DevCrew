@@ -423,7 +423,7 @@ function mostrarCategorias() {
     */
    let cmpLista = document.getElementById("listaCategorias")
    let categoriaA
-  let contenidoListaCategorias = "<table><th>NOMBRE</th><th>Descripcion</th>"
+  let contenidoListaCategorias = "<table class='tabla-minimalista'><th>NOMBRE</th><th>Descripcion</th>"
   for(let i =0;i<categorias.length;i++){
     categoriaA = categorias[i]
     contenidoListaCategorias += "<tr><td>"+categoriaA.nombre+"</td>"+"<td>"+categoriaA.descripcion+"</td></tr>"
