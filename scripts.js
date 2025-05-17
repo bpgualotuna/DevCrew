@@ -510,8 +510,8 @@ function mostrarCarrito() {
       - Crear filas dinámicas con los datos y botón para eliminar
     */
       let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
+      "<th>Nombre</th>" +
       "<th>Cantidad</th>" +
-      "<th>Subtotal</th>" +
       "<th>Precio</th>" +
      
       "</tr></thead><tbody>";
@@ -523,8 +523,7 @@ function mostrarCarrito() {
       
       contenidoTabla +=
         
-        "<tr><td>" + elementosTabla.cantidad+ "</td>" +
-        "<td>" + elementosTabla.precio* elementosTabla.cantidad+ "</td>" +
+        "<tr><td>" + elementosTabla.nombre+ "</td>" + "<td>" + elementosTabla.cantidad+ "</td>" +
       
           "<td>" + elementosTabla.precio+"</td>" +
         "</td></tr>";
