@@ -154,9 +154,16 @@
             </div>
 
             <div class="campo">
-                <button type="button" onclick="finalizarCompra();">Finalizar Compra</button>
-                <button type="button" onclick="guardarDatosCliente();">prueba validaciones</button>
+                <button type="button" onclick="guardarDatosCliente();">Guardar Cliente</button>
+                <button type="button" onclick="finalizarCompra();" id="finalizarCompra">Finalizar Compra</button>
+                
             </div>
+            <div class="campo"></div>
+                <h2 id="resumen">
+
+                </h2>
+            </div>
+
         </div>
     </div>
 
@@ -169,7 +176,7 @@
             <div id="tablaVentas">
 
             </div>
-           
+
             <div id="estadisticasVentas">
                 <p>Total Ventas: $<span id="totalVentas">0.00</span></p>
                 <p>Producto más vendido: <span id="productoMasVendido">-</span></p>
@@ -183,6 +190,7 @@
                 div.style.display = div.id === id ? 'block' : 'none';
             });
             mostrarVentas()
+            deshabilitarComponente("finalizarCompra");
             mostrarCategorias()
             actualizarEstadisticasProductos()
             mostrarProductos()

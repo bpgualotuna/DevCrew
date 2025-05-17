@@ -264,16 +264,9 @@ function mostrarProductos() {
       - Recorrer lista de productos
       - Crear filas dinámicas con los datos y botón para eliminar
     */
-  let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
-    "<th>NOmbre</th>" +
-    "<th>Descripcion</th>" +
-    "<th>CAtegoria</th>" +
-    "<th>Precio</th>" +
-    "<th>Stock</th>" +
-    "<th>Precio iva</th>" +
-    "</tr></thead><tbody>";
-
-  let elementosTabla;
+  let cmpTabla = document.getElementById("productosTabla");
+  let contenidoTabla = "<table>";
+  let elementoProductos;
   for (let i = 0; i < productos.length; i++) {
     elementosTabla = productos[i];
     contenidoTabla +=
@@ -503,42 +496,38 @@ function agregarAlCarrito(nombreProducto) {
 
 // Función: mostrar resumen del carrito
 function mostrarCarrito() {
-  let nombreCar = recuperarTexto("txtCarrito")
-  
-
-  let cmpTabla = document.getElementById("tablaCarrito")
-
+ 
+   let cmpTabla = document.getElementById("tablaCarrito")
+    
   /*
       - Limpiar contenido actual de la tabla
       - Recorrer lista de producto
       - Crear filas dinámicas con los datos y botón para eliminar
     */
-  let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
-    "<th>Nombre</th>" +
-    "<th>Cantidad</th>" +
-    "<th>Subtotal</th>" +
-    "<th>Precio</th>" +
-
-    "</tr></thead><tbody>";
-
-  let elementosTabla;
-  let totalAPagar = 0;
-  for (let i = 0; i < carrito.length; i++) {
-    elementosTabla = carrito[i];
-
-    contenidoTabla +=
-
-      "<tr> <td>" + elementosTabla.nombre + "</td>" + 
-      "<td>" + elementosTabla.cantidad + "</td>" +
-      "<td>" + elementosTabla.precio * elementosTabla.cantidad + "</td>" +
-
-      "<td>" + elementosTabla.precio + "</td>" +
-      "</td></tr>";
-    totalAPagar += elementosTabla.precio * elementosTabla.cantidad
-  }
-  contenidoTabla += "</tbody></table>";
-  cmpTabla.innerHTML = contenidoTabla;
-  let resultado = mostrarTexto("totalCarrito", totalAPagar.toFixed(2))
+      let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
+      "<th>Cantidad</th>" +
+      "<th>Subtotal</th>" +
+      "<th>Precio</th>" +
+     
+      "</tr></thead><tbody>";
+    
+    let elementosTabla;
+    let totalAPagar = 0;
+    for (let i = 0; i < carrito.length; i++) {
+      elementosTabla = carrito[i];
+      
+      contenidoTabla +=
+        
+        "<tr><td>" + elementosTabla.cantidad+ "</td>" +
+        "<td>" + elementosTabla.precio* elementosTabla.cantidad+ "</td>" +
+      
+          "<td>" + elementosTabla.precio+"</td>" +
+        "</td></tr>";
+totalAPagar +=  elementosTabla.precio * elementosTabla.cantidad
+    }
+    contenidoTabla += "</tbody></table>";
+    cmpTabla.innerHTML = contenidoTabla;
+    let resultado= mostrarTexto("totalCarrito", totalAPagar.toFixed(2))
   return resultado
 }
 /*
@@ -656,6 +645,29 @@ function guardarDatosCliente() {
     mostrarTexto("errorDireccionCliente", "");
   }
 
+  if (errorNombre == false && errorCorreo == false && errorTel == false && errorDirec == false) {
+    let newCliente = [];
+    let newVenta = [];
+
+    newCliente.nombre = nombreC;
+    newCliente.email = correoC;
+    newCliente.telefono = telefonoC;
+    newCliente.direccion = direccionC;
+
+    newVenta.cliente = newCliente;
+    newVenta.total = 0.0;
+
+    ventas.push(newVenta);
+
+    alert("Cliente Guardado Exitosamente");
+
+    habilitarComponente("finalizarCompra");
+
+
+  }
+
+
+
 
 }
 
@@ -669,6 +681,67 @@ function finalizarCompra() {
       - Actualizar tablas y estadísticas
       - Mostrar mensaje éxito y limpiar formulario cliente
     */
+  let nombre = recuperarTexto("nombreCliente");
+  let carritoV = carrito.length;
+  let nombreValido = false;
+  let carritoValido = false;
+
+  if (carritoV == 0) {
+    mostrarSeccion('seccion3');
+    carritoValido = true;
+  }
+  if (buscarCliente(nombre) != false) {
+    alert("Cliente No Guardado");
+    nombreValido = true;
+  }
+
+
+
+  if (nombreValido == false && carritoValido == false) {
+    for (let i = 0; i < carrito.length; i++) {
+      let productoEncontrado = buscarProducto(carrito[i].nombre);
+      if (productoEncontrado != false) {
+        for (let j = 0; j < productos.length; j++) {
+          if (productoEncontrado.nombre == productos[j].nombre) {
+            productos[j].stock -= productoEncontrado.stock;
+          }
+        }
+      }
+    }
+  }
+  let cliente = buscarCliente(nombre);
+  let resumen = "";
+  resumen += "Nombre: " + cliente.nombre;
+  resumen += "\n" + "email: " + cliente.email;
+  resumen += "\n" + "telefono: " + cliente.telefono;
+  resumen += "\n" + "direccion: " + cliente.direccion;
+  mostrarTexto("resumen", resumen);
+
+
+
+
+}
+
+buscarProducto = function (nombre) {
+  let productoEncontrado = false;
+  for (let i = 0; i < productos.length; i++) {
+    if (productos[i].nombre == nombre) {
+      productoEncontrado = productos[i];
+      break;
+    }
+  }
+  return productoEncontrado;
+}
+
+buscarCliente = function (nombre) {
+  let clienteEncontrado = false;
+  for (let i = 0; i < ventas.length; i++) {
+    if (ventas[i].cliente.nombre == nombre) {
+      clienteEncontrado = ventas[i].cliente;
+      break;
+    }
+  }
+  return clienteEncontrado;
 }
 
 // Función: mostrar resumen de ventas
@@ -720,7 +793,7 @@ function calcularProductoMasVendido() {
   let mayor = productoMayor;
   mostrarTexto("productoMasVendido", productoMayor.nombre + " fue el producto mas vendido con un total de " + productoMayor.cantidad + " ventas.")
 
-
+    
 
   /*
       - Contar cantidades vendidas de cada producto en todas las ventas
