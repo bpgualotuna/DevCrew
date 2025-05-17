@@ -8,7 +8,6 @@
     <script src="utilitarios.js"></script>
     <script src="scripts.js"></script>
 </head>
-
 <body onload="mostrarSeccion('seccion1');"  >
 
     <!-- Logos fijos a los lados -->
@@ -118,7 +117,6 @@
             <div id="productosDisponibles">
                 <!-- Productos para añadir -->
             </div>
-
             <h3>Resumen del Carrito</h3>
             <table id="tablaCarrito">
                 <thead>
@@ -128,11 +126,15 @@
                         <th>Subtotal</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="carritoTabla">
                     <!-- Carrito aparecerá aquí -->
                 </tbody>
             </table>
             <p>Total: $<span id="totalCarrito">0.00</span></p>
+             <input type="text" id="txtCarrito" placeholder="Ingrese el nombre del producto">
+             <input type="text" id="txtCantidad" placeholder="Ingrese la cantidad deseada">
+            <input type="button" value="Mostrar Carrito" onclick="mostrarCarrito();" id="btnMostrarCarrito">
+            <input type="button" value="Agregar al Carrito" onclick="agregarAlCarrito();" id="btnAgregarCarrito">
         </div>
     </div>
 

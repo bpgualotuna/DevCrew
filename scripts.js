@@ -359,6 +359,41 @@ function mostrarProductosDisponibles() {
 
 // Función: añadir producto al carrito
 function agregarAlCarrito(nombreProducto) {
+  let encontrado=buscarNombre(nombreProducto);
+  let cantidad =recuperarInt("txtCantidad")
+  let errorCantidad=false;
+  if(cantidad == NaN){
+    mostrarTexto("lblErrorCantidad","Ingrese una cantidad");
+    errorCantidad=true;
+  }else if(cantidad <=0){
+    mostrarTexto("lblErrorCantidad","Ingrese una cantidad valida");
+    errorCantidad=true;
+  }else if(productos.cantidad <= 0 ){
+    mostrarTexto("lblErrorCantidad","No hay suficiente stock");
+    errorCantidad=true;
+  }else{
+    mostrarTexto("lblErrorCantidad","");
+  }
+
+if(errorCantidad == false){
+  for(let i=0; i<carrito.length; i++){
+    if(carrito[i].nombre == nombreProducto){
+      carrito[i].cantidad+=cantidad;
+      encontrado.nombre+=cantidad;
+      mostrarTexto("lblErrorCantidad","El producto ya existe en el carrito");
+      mostrarCarrito();
+    }
+  }
+}
+  if(encontrado != null){
+     agregarProducto(encontrado.nombre);
+     agregarProducto(encontrado.descripcion);
+     agregarProducto(encontrado.categoria);
+     agregarProducto(encontrado.precio);
+     agregarProducto(encontrado.stock);
+  }else{
+    alert("El producto no existe");
+  }
   /*
       - Validar cantidad y stock disponible
       - Añadir producto o aumentar cantidad en carrito
