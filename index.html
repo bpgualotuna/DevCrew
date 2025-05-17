@@ -53,6 +53,7 @@
                 <label for="nombreProducto">Stock:</label>
                 <input type="text" id="txtStock"/>
                 <div class="error" id="lblErrorStock"></div>
+            <p class="espacioCorto"> </p>
                 <input type="button" value="AGERGAR PRODUCTO" onclick="agregarProducto();"/>
                 <input type="button" value="BUSCAR PRODUCTO" onclick="buscarProducto();"/>
                 <label for="nombreProducto" id="lblEncontrado"></label>
@@ -188,6 +189,8 @@
             });
             mostrarVentas()
             mostrarCategorias()
+            actualizarEstadisticasProductos()
+            mostrarProductos()
         }
     </script>
 
