@@ -154,7 +154,7 @@ function agregarProducto() {
 
   //validacion Precio
   let errorPrecio = false;
-  if (precio == NaN) {
+  if (parseInt(precio) == NaN) {
     mostrarTexto("lblErrorPrecio", "Ingrese un precio ");
     errorPrecio = true;
   } else {
@@ -163,9 +163,7 @@ function agregarProducto() {
   if (precio < 0) {
     mostrarTexto("lblErrorPrecio", "Ingrese un precio valido mayor o igual a 0");
     errorPrecio = true;
-  } else {
-    mostrarTexto("lblErrorPrecio", "");
-  }
+  } 
   //Validacion Stock
   let errorStock = false;
   if (stock == NaN) {
