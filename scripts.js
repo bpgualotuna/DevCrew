@@ -703,6 +703,28 @@ buscarCliente = function (nombre) {
 
 // Función: mostrar resumen de ventas
 function mostrarVentas() {
+  let cmpTabla = document.getElementById("tablaVentas")
+  /*
+      - Limpiar contenido actual de la tabla
+      - Recorrer lista de productos
+      - Crear filas dinámicas con los datos y botón para eliminar
+    */
+  let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
+    "<th>Nombre</th>" +
+    "<th>TOTAL VENDIDO</th>" +
+    "</tr></thead><tbody>";
+
+  let elementosTabla;
+  for (let i = 0; i < ventas.length; i++) {
+    elementosTabla = ventas[i];
+    contenidoTabla +=
+      "<tr><td>" + elementosTabla.cliente.nombre + "</td>" +
+      "<td>" + elementosTabla.total +
+      "</td></tr>";
+  }
+  contenidoTabla += "</tbody></table>";
+  cmpTabla.innerHTML = contenidoTabla;
+  calcularProductoMasVendido();
   /*
       - Mostrar tabla con ventas registradas
       - Calcular y mostrar totales globales y producto más vendido
@@ -711,8 +733,21 @@ function mostrarVentas() {
 
 // Función: calcular producto más vendido
 function calcularProductoMasVendido() {
-  /*
-      - Contar cantidades vendidas de cada producto en todas las ventas
-      - Retornar nombre de producto con mayor cantidad vendida
-    */
-}
+  let totalVentas = 0;
+  let elementoVentas;
+  for (let i = 0; i < ventas.length; i++) {
+    elementoVentas = ventas[i].total;
+    totalVentas += elementoVentas;
+  }
+  mostrarTexto("totalVentas", totalVentas.toFixed(2))
+  let productoMayor = carrito[0];
+  for (let i = 1; i < carrito.length; i++){
+    let elementoCarrito = carrito[i];
+    if(elementoCarrito.cantidad > productoMayor.cantidad){
+      productoMayor = elementoCarrito;
+    }
+  }
+  let mayor = productoMayor;
+  mostrarTexto("productoMasVendido", productoMayor.nombre +" fue el producto mas vendido con un total de "+productoMayor.cantidad+" ventas.")
+
+     }
