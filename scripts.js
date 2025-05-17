@@ -256,22 +256,15 @@ buscarProducto = function () {
 
 // Función: mostrar productos en la tabla
 function mostrarProductos() {
+  let cmpTabla = document.getElementById("tablaProductos")
   /*
       - Limpiar contenido actual de la tabla
       - Recorrer lista de productos
       - Crear filas dinámicas con los datos y botón para eliminar
     */
-  let cmpTabla = document.getElementById("tablaProductos");
-  let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
-    "<th>NOmbre</th>" +
-    "<th>Descripcion</th>" +
-    "<th>CAtegoria</th>" +
-    "<th>Precio</th>" +
-    "<th>Stock</th>" +
-    "<th>Precio iva</th>" +
-    "</tr></thead><tbody>";
-
-  let elementosTabla;
+  let cmpTabla = document.getElementById("productosTabla");
+  let contenidoTabla = "<table>";
+  let elementoProductos;
   for (let i = 0; i < productos.length; i++) {
     elementosTabla = productos[i];
     contenidoTabla +=
@@ -285,6 +278,7 @@ function mostrarProductos() {
   }
   contenidoTabla += "</tbody></table>";
   cmpTabla.innerHTML = contenidoTabla;
+
 
 }
 
