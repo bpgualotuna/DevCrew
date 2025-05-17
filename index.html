@@ -166,19 +166,12 @@
     <div id="seccion5" class="seccion" style="display:none;">
         <div class="contenido-seccion">
             <h2>Resumen de Ventas (Reto Grupal)</h2>
+            
+            <p></p>
+            <div id="tablaVentas">
 
-            <table id="tablaVentas">
-                <thead>
-                    <tr>
-                        <th>Cliente</th>
-                        <th>Productos</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Ventas aparecerán aquí -->
-                </tbody>
-            </table>
+            </div>
+           
             <div id="estadisticasVentas">
                 <p>Total Ventas: $<span id="totalVentas">0.00</span></p>
                 <p>Producto más vendido: <span id="productoMasVendido">-</span></p>
@@ -191,6 +184,7 @@
             document.querySelectorAll('.seccion').forEach(div => {
                 div.style.display = div.id === id ? 'block' : 'none';
             });
+            mostrarVentas()
         }
     </script>
 

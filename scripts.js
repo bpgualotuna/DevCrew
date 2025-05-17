@@ -130,8 +130,8 @@ function agregarProducto() {
       if (soloLetras(categoria.charAt(i)) == false) {
         mostrarTexto("lblErrorCategoria", "La categoria solo puede tener letras y espacios");
         errorCategoria = true;
-        
-      }else{
+
+      } else {
         mostrarTexto("lblErrorCategoria", "");
       }
     }
@@ -154,10 +154,10 @@ function agregarProducto() {
 
   //validacion Precio
   let errorPrecio = false;
-  if(precio == NaN){
+  if (precio == NaN) {
     mostrarTexto("lblErrorPrecio", "Ingrese un precio ");
     errorPrecio = true;
-  }else{
+  } else {
     mostrarTexto("lblErrorPrecio", "");
   }
   if (precio < 0) {
@@ -168,10 +168,10 @@ function agregarProducto() {
   }
   //Validacion Stock
   let errorStock = false;
-  if(stock == NaN){
+  if (stock == NaN) {
     mostrarTexto("lblErrorStock", "Ingrese un stock ");
     errorPrecio = true;
-  }else{
+  } else {
     mostrarTexto("lblErrorStock", "");
   }
   if (stock < 0) {
@@ -180,7 +180,7 @@ function agregarProducto() {
   } else {
     mostrarTexto("lblErrorStock", "");
   }
-  
+
 
   if (errorNombre == false && errorDescripcion == false && errorCategoria == false && errorPrecio == false && errorStock == false) {
     let productoAgregar = {};
@@ -397,13 +397,13 @@ function guardarDatosCliente() {
       - Obtener y validar campos del cliente (nombre, email, teléfono, dirección)
       - Guardar datos para la compra
     */
-   let nombreC = recuperarTexto("nombreCliente");
-   let correoC = recuperarTexto("emailCliente");
-   let telefonoC = recuperarTexto("telefonoCliente");
-   let direccionC = recuperarTexto("direccionCliente");
+  let nombreC = recuperarTexto("nombreCliente");
+  let correoC = recuperarTexto("emailCliente");
+  let telefonoC = recuperarTexto("telefonoCliente");
+  let direccionC = recuperarTexto("direccionCliente");
 
-   //validacion nombre
-   let errorNombre = false;
+  //validacion nombre
+  let errorNombre = false;
   if (nombreC == "") {
     mostrarTexto("errorNombreCliente", "El nombre no puede estar vacio");
     errorNombre = true;
@@ -432,41 +432,41 @@ function guardarDatosCliente() {
 
   //validacion Correo
   let errorCorreo = false;
-  if(correoC == ""){
-    mostrarTexto("errorEmailCliente","Debe ingresar un correo");
+  if (correoC == "") {
+    mostrarTexto("errorEmailCliente", "Debe ingresar un correo");
     errorCorreo = true;
-  }else{
-    mostrarTexto("errorEmailCliente","");
+  } else {
+    mostrarTexto("errorEmailCliente", "");
   }
-  if(errorCorreo == false){
+  if (errorCorreo == false) {
     let arro = 0;
-    for(let i = 0; i<correoC.length;i++){
-      if(correoC.charAt(i) == "@"){
+    for (let i = 0; i < correoC.length; i++) {
+      if (correoC.charAt(i) == "@") {
         arro += 1;
       }
     }
-    if(arro != 1){
-      mostrarTexto("errorEmailCliente","Debe ser un correo valido (un solo @)");
+    if (arro != 1) {
+      mostrarTexto("errorEmailCliente", "Debe ser un correo valido (un solo @)");
       errorCorreo = true;
-    }else{
-      mostrarTexto("errorEmailCliente","");
+    } else {
+      mostrarTexto("errorEmailCliente", "");
     }
   }
 
   //Validacion Telefono
 
   let errorTel = false;
-  if(telefonoC == ""){
-    mostrarTexto("errorTelefonoCliente","Debe ingresar un telefono");
+  if (telefonoC == "") {
+    mostrarTexto("errorTelefonoCliente", "Debe ingresar un telefono");
     errorTel = true;
-  }else{
-    mostrarTexto("errorTelefonoCliente","");
+  } else {
+    mostrarTexto("errorTelefonoCliente", "");
   }
 
-  if(errorTel == false){
-    for(let i = 0;i<telefonoC.length;i++){
-      if(esDigito(telefonoC.charAt(i)) == false){
-        mostrarTexto("errorTelefonoCliente","Debe ingresar solo numeros");
+  if (errorTel == false) {
+    for (let i = 0; i < telefonoC.length; i++) {
+      if (esDigito(telefonoC.charAt(i)) == false) {
+        mostrarTexto("errorTelefonoCliente", "Debe ingresar solo numeros");
         errorTel = true;
         break;
       }
@@ -476,14 +476,14 @@ function guardarDatosCliente() {
   //validacion Direccion
 
   let errorDirec = false;
-  if(direccionC == ""){
-    mostrarTexto("errorDireccionCliente","Debe ingresar una direccion");
+  if (direccionC == "") {
+    mostrarTexto("errorDireccionCliente", "Debe ingresar una direccion");
     errorDirec = true;
-  }else{
-    mostrarTexto("errorDireccionCliente","");
+  } else {
+    mostrarTexto("errorDireccionCliente", "");
   }
 
-  if(errorNombre == false && errorCorreo == false && errorTel == false && errorDirec == false){
+  if (errorNombre == false && errorCorreo == false && errorTel == false && errorDirec == false) {
     let newCliente = [];
     let newVenta = [];
 
