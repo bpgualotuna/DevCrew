@@ -261,24 +261,30 @@ function mostrarProductos() {
       - Recorrer lista de productos
       - Crear filas dinámicas con los datos y botón para eliminar
     */
-  let cmpTabla = document.getElementById("productosTabla");
-  let contenidoTabla = "<table>";
-  let elementoProductos;
-  for (let i = 0; i < productos.length; i++) {
-    elementoProductos = productos[i];
-    let iva = elementoProductos.precio * 1.12;
-    contenidoTabla += "<tr>" +
-      "<td>" + elementoProductos.nombre + "</td>" +
-      "<td>" + elementoProductos.descripcion + "</td>" +
-      "<td>" + elementoProductos.categoria + "</td>" +
-      "<td>" + elementoProductos.precio + "</td>" +
-      "<td>" + elementoProductos.stock + "</td>" +
-      "<td>" + iva + "</td>" +
-      "</tr>";
-  }
-  contenidoTabla += "</table>"
-  cmpTabla.innerHTML = contenidoTabla;
+  let cmpTabla = document.getElementById("tablaProductos");
+  let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
+    "<th>NOmbre</th>" +
+    "<th>Descripcion</th>" +
+    "<th>CAtegoria</th>" +
+    "<th>Precio</th>" +
+    "<th>Stock</th>" +
+    "<th>Precio iva</th>" +
+    "</tr></thead><tbody>";
 
+  let elementosTabla;
+  for (let i = 0; i < productos.length; i++) {
+    elementosTabla = productos[i];
+    contenidoTabla +=
+      "<tr><td>" + elementosTabla.nombre + "</td>" +
+      "<td>" + elementosTabla.descripcion + "</td>" +
+      "<td>" + elementosTabla.categoria + "</td>" +
+      "<td>" + elementosTabla.precio +
+      "<td>" + elementosTabla.stock +
+      "<td>" + ((elementosTabla.precio * 112) / 100).toFixed(2) +
+      "</td></tr>";
+  }
+  contenidoTabla += "</tbody></table>";
+  cmpTabla.innerHTML = contenidoTabla;
 
 }
 
@@ -383,27 +389,27 @@ function agregarCategoria() {
       }
     }
   }
-  if (errorCategoria == false && errorDescripcion == false){
-  let categoriaA
-  let esNuevo =true
-  for ( let i = 0;i<categorias.length;i++){
-categoriaA = categorias[i]
-if (categoriaA.nombre == categoria){
-  alert("La categoria ya existe")
-  esNuevo = false
-  break
-}
-}
-if (esNuevo == true){
-  let nuevaCategoria=[]
-  nuevaCategoria.nombre = categoria
-  nuevaCategoria.descripcion = descripcion
-  categorias.push(nuevaCategoria)
-  alert("categoria agregada")
-  mostrarTextoEnCaja("nombreCategoria","")
-  mostrarTextoEnCaja("descripcionCategoria","")
-}
-}
+  if (errorCategoria == false && errorDescripcion == false) {
+    let categoriaA
+    let esNuevo = true
+    for (let i = 0; i < categorias.length; i++) {
+      categoriaA = categorias[i]
+      if (categoriaA.nombre == categoria) {
+        alert("La categoria ya existe")
+        esNuevo = false
+        break
+      }
+    }
+    if (esNuevo == true) {
+      let nuevaCategoria = []
+      nuevaCategoria.nombre = categoria
+      nuevaCategoria.descripcion = descripcion
+      categorias.push(nuevaCategoria)
+      alert("categoria agregada")
+      mostrarTextoEnCaja("nombreCategoria", "")
+      mostrarTextoEnCaja("descripcionCategoria", "")
+    }
+  }
   mostrarCategorias()
 }
 
@@ -414,14 +420,14 @@ function mostrarCategorias() {
       - Recorrer categorías y mostrar en lista HTML
       - Agregar botón para eliminar categoría
     */
-   let cmpLista = document.getElementById("listaCategorias")
-   let categoriaA
+  let cmpLista = document.getElementById("listaCategorias")
+  let categoriaA
   let contenidoListaCategorias = "<table class='tabla-minimalista'><thead><th>NOMBRE</th><th>Descripcion</th></thead><tbody>"
-  for(let i =0;i<categorias.length;i++){
+  for (let i = 0; i < categorias.length; i++) {
     categoriaA = categorias[i]
-    contenidoListaCategorias += "<tr><td>"+categoriaA.nombre+"</td>"+"<td>"+categoriaA.descripcion+"</td></tr>"
+    contenidoListaCategorias += "<tr><td>" + categoriaA.nombre + "</td>" + "<td>" + categoriaA.descripcion + "</td></tr>"
   }
-  contenidoListaCategorias +="</tbody></table>"
+  contenidoListaCategorias += "</tbody></table>"
   cmpLista.innerHTML = contenidoListaCategorias
 }
 
@@ -453,44 +459,44 @@ function agregarAlCarrito(nombreProducto) {
 
 // Función: mostrar resumen del carrito
 function mostrarCarrito() {
- 
-   let cmpTabla = document.getElementById("tablaCarrito")
-    
+
+  let cmpTabla = document.getElementById("tablaCarrito")
+
   /*
       - Limpiar contenido actual de la tabla
       - Recorrer lista de producto
       - Crear filas dinámicas con los datos y botón para eliminar
     */
-      let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
-      "<th>Cantidad</th>" +
-      "<th>Subtotal</th>" +
-      "<th>Precio</th>" +
-     
-      "</tr></thead><tbody>";
-    
-    let elementosTabla;
-    let totalAPagar = 0;
-    for (let i = 0; i < carrito.length; i++) {
-      elementosTabla = carrito[i];
-      
-      contenidoTabla +=
-        
-        "<tr><td>" + elementosTabla.cantidad+ "</td>" +
-        "<td>" + elementosTabla.precio* elementosTabla.cantidad+ "</td>" +
-      
-          "<td>" + elementosTabla.precio+"</td>" +
-        "</td></tr>";
-totalAPagar +=  elementosTabla.precio * elementosTabla.cantidad
-    }
-    contenidoTabla += "</tbody></table>";
-    cmpTabla.innerHTML = contenidoTabla;
-    let resultado= mostrarTexto("totalCarrito", totalAPagar.toFixed(2))
+  let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
+    "<th>Cantidad</th>" +
+    "<th>Subtotal</th>" +
+    "<th>Precio</th>" +
+
+    "</tr></thead><tbody>";
+
+  let elementosTabla;
+  let totalAPagar = 0;
+  for (let i = 0; i < carrito.length; i++) {
+    elementosTabla = carrito[i];
+
+    contenidoTabla +=
+
+      "<tr><td>" + elementosTabla.cantidad + "</td>" +
+      "<td>" + elementosTabla.precio * elementosTabla.cantidad + "</td>" +
+
+      "<td>" + elementosTabla.precio + "</td>" +
+      "</td></tr>";
+    totalAPagar += elementosTabla.precio * elementosTabla.cantidad
+  }
+  contenidoTabla += "</tbody></table>";
+  cmpTabla.innerHTML = contenidoTabla;
+  let resultado = mostrarTexto("totalCarrito", totalAPagar.toFixed(2))
   return resultado
 }
-  /*
-      - Mostrar tabla con productos en carrito, cantidades y subtotal
-      - Mostrar total general
-    */
+/*
+    - Mostrar tabla con productos en carrito, cantidades y subtotal
+    - Mostrar total general
+  */
 
 
 // Función: editar cantidad de producto en carrito
@@ -643,23 +649,23 @@ function finalizarCompra() {
   let nombreValido = false;
   let carritoValido = false;
 
-  if(carritoV == 0){
+  if (carritoV == 0) {
     mostrarSeccion('seccion3');
     carritoValido = true;
   }
-  if(buscarCliente(nombre)== false){
+  if (buscarCliente(nombre) == false) {
     alert("Cliente No Guardado");
     nombreValido = true;
   }
 
 
 
-  if(nombreValido == false && carritoValido == false){
-    for(let i=0;i<carrito.length;i++){
+  if (nombreValido == false && carritoValido == false) {
+    for (let i = 0; i < carrito.length; i++) {
       let productoEncontrado = buscarProducto(carrito[i].nombre);
-      if(productoEncontrado != false){
-        for(let j = 0; i<productos.length;j++){
-          if(productoEncontrado.nombre == productos[j].nombre){
+      if (productoEncontrado != false) {
+        for (let j = 0; i < productos.length; j++) {
+          if (productoEncontrado.nombre == productos[j].nombre) {
             productos[j].stock -= productoEncontrado.stock;
           }
         }
@@ -671,7 +677,7 @@ function finalizarCompra() {
   resumen += "Nombre: " + cliente.nombre;
   resumen += "\n" + "email: " + cliente.email;
   resumen += "\n" + "telefono: " + cliente.telefono;
-  resumen += "\n" + "direccion: " + cliente.direccion; 
+  resumen += "\n" + "direccion: " + cliente.direccion;
   mostrarTexto("resumen", resumen);
 
 
@@ -679,10 +685,10 @@ function finalizarCompra() {
 
 }
 
-buscarProducto = function (nombre){
+buscarProducto = function (nombre) {
   let productoEncontrado = false;
-  for (let i=0;i<productos.length;i++){
-    if(productos[i].nombre == nombre){
+  for (let i = 0; i < productos.length; i++) {
+    if (productos[i].nombre == nombre) {
       productoEncontrado = productos[i];
       break;
     }
@@ -690,11 +696,11 @@ buscarProducto = function (nombre){
   return productoEncontrado;
 }
 
-buscarCliente = function (nombre){
+buscarCliente = function (nombre) {
   let clienteEncontrado = false;
-  for (let i=0;i<ventas.length;i++){
-    if(ventas[i].cliente.nombre == nombre){
-      clienteEncontrado=true;
+  for (let i = 0; i < ventas.length; i++) {
+    if (ventas[i].cliente.nombre == nombre) {
+      clienteEncontrado = true;
       break;
     }
   }
