@@ -256,28 +256,35 @@ buscarProducto = function () {
 
 // Función: mostrar productos en la tabla
 function mostrarProductos() {
+  let cmpTabla = document.getElementById("tablaProductos")
   /*
       - Limpiar contenido actual de la tabla
       - Recorrer lista de productos
       - Crear filas dinámicas con los datos y botón para eliminar
     */
-  let cmpTabla = document.getElementById("productosTabla");
-  let contenidoTabla = "<table>";
-  let elementoProductos;
-  for (let i = 0; i < productos.length; i++) {
-    elementoProductos = productos[i];
-    let iva = elementoProductos.precio * 1.12;
-    contenidoTabla += "<tr>" +
-      "<td>" + elementoProductos.nombre + "</td>" +
-      "<td>" + elementoProductos.descripcion + "</td>" +
-      "<td>" + elementoProductos.categoria + "</td>" +
-      "<td>" + elementoProductos.precio + "</td>" +
-      "<td>" + elementoProductos.stock + "</td>" +
-      "<td>" + iva + "</td>" +
-      "</tr>";
-  }
-  contenidoTabla += "</table>"
-  cmpTabla.innerHTML = contenidoTabla;
+      let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
+      "<th>NOmbre</th>" +
+      "<th>Descripcion</th>" +
+      "<th>CAtegoria</th>" +
+      "<th>Precio</th>" +
+      "<th>Stock</th>" +
+      "<th>Precio iva</th>" +
+      "</tr></thead><tbody>";
+  
+    let elementosTabla;
+    for (let i = 0; i < productos.length; i++) {
+      elementosTabla = productos[i];
+      contenidoTabla +=
+        "<tr><td>" + elementosTabla.nombre + "</td>" +
+        "<td>" + elementosTabla.descripcion + "</td>" +
+        "<td>" + elementosTabla.categoria + "</td>" +
+        "<td>" + elementosTabla.precio +
+        "<td>" + elementosTabla.stock +
+        "<td>" + ((elementosTabla.precio * 112) / 100).toFixed(2) +
+        "</td></tr>";
+    }
+    contenidoTabla += "</tbody></table>";
+    cmpTabla.innerHTML = contenidoTabla;
 
 
 }
