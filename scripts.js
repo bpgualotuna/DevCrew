@@ -618,11 +618,32 @@ function finalizarCompra() {
   }
 
   if(nombreValido == false && carritoValido == false){
-    
+    for(let i=0;i<carrito.length;i++){
+      let productoEncontrado = buscarProducto(carrito[i].nombre);
+      if(productoEncontrado != false){
+        for(let j = 0; i<productos.length;j++){
+          if(productoEncontrado.nombre == productos[j].nombre){
+            productos[j].stock -= productoEncontrado[i].stock;
+          }
+        }
+      }
+    }
   }
+  
 
 
 
+}
+
+buscarProducto = function (nombre){
+  let productoEncontrado = false;
+  for (let i=0;i<productos.length;i++){
+    if(productos[i].nombre == nombre){
+      productoEncontrado = productos[i];
+      break;
+    }
+  }
+  return productoEncontrado;
 }
 
 buscarCliente = function (nombre){
