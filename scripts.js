@@ -653,7 +653,7 @@ function finalizarCompra() {
     mostrarSeccion('seccion3');
     carritoValido = true;
   }
-  if (buscarCliente(nombre) == false) {
+  if (buscarCliente(nombre) != false) {
     alert("Cliente No Guardado");
     nombreValido = true;
   }
@@ -664,7 +664,7 @@ function finalizarCompra() {
     for (let i = 0; i < carrito.length; i++) {
       let productoEncontrado = buscarProducto(carrito[i].nombre);
       if (productoEncontrado != false) {
-        for (let j = 0; i < productos.length; j++) {
+        for (let j = 0; j < productos.length; j++) {
           if (productoEncontrado.nombre == productos[j].nombre) {
             productos[j].stock -= productoEncontrado.stock;
           }
@@ -700,7 +700,7 @@ buscarCliente = function (nombre) {
   let clienteEncontrado = false;
   for (let i = 0; i < ventas.length; i++) {
     if (ventas[i].cliente.nombre == nombre) {
-      clienteEncontrado = true;
+      clienteEncontrado = ventas[i].cliente;
       break;
     }
   }
