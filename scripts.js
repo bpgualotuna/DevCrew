@@ -130,8 +130,8 @@ function agregarProducto() {
       if (soloLetras(categoria.charAt(i)) == false) {
         mostrarTexto("lblErrorCategoria", "La categoria solo puede tener letras y espacios");
         errorCategoria = true;
-        
-      }else{
+
+      } else {
         mostrarTexto("lblErrorCategoria", "");
       }
     }
@@ -154,10 +154,10 @@ function agregarProducto() {
 
   //validacion Precio
   let errorPrecio = false;
-  if(precio == NaN){
+  if (precio == NaN) {
     mostrarTexto("lblErrorPrecio", "Ingrese un precio ");
     errorPrecio = true;
-  }else{
+  } else {
     mostrarTexto("lblErrorPrecio", "");
   }
   if (precio < 0) {
@@ -168,10 +168,10 @@ function agregarProducto() {
   }
   //Validacion Stock
   let errorStock = false;
-  if(stock == NaN){
+  if (stock == NaN) {
     mostrarTexto("lblErrorStock", "Ingrese un stock ");
     errorPrecio = true;
-  }else{
+  } else {
     mostrarTexto("lblErrorStock", "");
   }
   if (stock < 0) {
@@ -180,7 +180,7 @@ function agregarProducto() {
   } else {
     mostrarTexto("lblErrorStock", "");
   }
-  
+
 
   if (errorNombre == false && errorDescripcion == false && errorCategoria == false && errorPrecio == false && errorStock == false) {
     let productoAgregar = {};
@@ -262,29 +262,29 @@ function mostrarProductos() {
       - Recorrer lista de productos
       - Crear filas dinámicas con los datos y botón para eliminar
     */
-      let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
-      "<th>NOmbre</th>" +
-      "<th>Descripcion</th>" +
-      "<th>CAtegoria</th>" +
-      "<th>Precio</th>" +
-      "<th>Stock</th>" +
-      "<th>Precio iva</th>" +
-      "</tr></thead><tbody>";
-  
-    let elementosTabla;
-    for (let i = 0; i < productos.length; i++) {
-      elementosTabla = productos[i];
-      contenidoTabla +=
-        "<tr><td>" + elementosTabla.nombre + "</td>" +
-        "<td>" + elementosTabla.descripcion + "</td>" +
-        "<td>" + elementosTabla.categoria + "</td>" +
-        "<td>" + elementosTabla.precio +
-        "<td>" + elementosTabla.stock +
-        "<td>" + ((elementosTabla.precio * 112) / 100).toFixed(2) +
-        "</td></tr>";
-    }
-    contenidoTabla += "</tbody></table>";
-    cmpTabla.innerHTML = contenidoTabla;
+  let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
+    "<th>NOmbre</th>" +
+    "<th>Descripcion</th>" +
+    "<th>CAtegoria</th>" +
+    "<th>Precio</th>" +
+    "<th>Stock</th>" +
+    "<th>Precio iva</th>" +
+    "</tr></thead><tbody>";
+
+  let elementosTabla;
+  for (let i = 0; i < productos.length; i++) {
+    elementosTabla = productos[i];
+    contenidoTabla +=
+      "<tr><td>" + elementosTabla.nombre + "</td>" +
+      "<td>" + elementosTabla.descripcion + "</td>" +
+      "<td>" + elementosTabla.categoria + "</td>" +
+      "<td>" + elementosTabla.precio +
+      "<td>" + elementosTabla.stock +
+      "<td>" + ((elementosTabla.precio * 112) / 100).toFixed(2) +
+      "</td></tr>";
+  }
+  contenidoTabla += "</tbody></table>";
+  cmpTabla.innerHTML = contenidoTabla;
 
 
 }
@@ -420,6 +420,28 @@ function finalizarCompra() {
 
 // Función: mostrar resumen de ventas
 function mostrarVentas() {
+  let cmpTabla = document.getElementById("tablaVentas")
+  /*
+      - Limpiar contenido actual de la tabla
+      - Recorrer lista de productos
+      - Crear filas dinámicas con los datos y botón para eliminar
+    */
+  let contenidoTabla = "<table class='tabla-minimalista'><thead><tr>" +
+    "<th>Nombre</th>" +
+    "<th>TOTAL VENDIDO</th>" +
+    "</tr></thead><tbody>";
+
+  let elementosTabla;
+  for (let i = 0; i < ventas.length; i++) {
+    elementosTabla = ventas[i];
+    contenidoTabla +=
+      "<tr><td>" + elementosTabla.cliente.nombre + "</td>" +
+      "<td>" + elementosTabla.total +
+      "</td></tr>";
+  }
+  contenidoTabla += "</tbody></table>";
+  cmpTabla.innerHTML = contenidoTabla;
+  calcularProductoMasVendido();
   /*
       - Mostrar tabla con ventas registradas
       - Calcular y mostrar totales globales y producto más vendido
@@ -428,6 +450,25 @@ function mostrarVentas() {
 
 // Función: calcular producto más vendido
 function calcularProductoMasVendido() {
+  let totalVentas = 0;
+  let elementoVentas;
+  for (let i = 0; i < ventas.length; i++) {
+    elementoVentas = ventas[i].total;
+    totalVentas += elementoVentas;
+  }
+  mostrarTexto("totalVentas", totalVentas.toFixed(2))
+  let productoMayor = carrito[0];
+  for (let i = 1; i < carrito.length; i++){
+    let elementoCarrito = carrito[i];
+    if(elementoCarrito.cantidad > productoMayor.cantidad){
+      productoMayor = elementoCarrito;
+    }
+  }
+  let mayor = productoMayor;
+  mostrarTexto("productoMasVendido", productoMayor.nombre +" fue el producto mas vendido con un total de "+productoMayor.cantidad+" ventas.")
+
+    
+
   /*
       - Contar cantidades vendidas de cada producto en todas las ventas
       - Retornar nombre de producto con mayor cantidad vendida
